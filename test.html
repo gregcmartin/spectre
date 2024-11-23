@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- CMS Examples -->
+    
+    <!-- WordPress -->
+    <link rel="stylesheet" href="/wp-content/themes/mytheme/style.css">
+    <script src="/wp-includes/js/jquery/jquery.min.js"></script>
+    <script>
+        var wpApiSettings = {
+            root: 'https://example.com/wp-json/',
+            nonce: 'abc123'
+        };
+        wp.customize.bind('ready', function() {
+            // WordPress customizer code
+        });
+    </script>
+
+    <!-- Drupal -->
+    <script>
+        window.drupalSettings = {
+            path: {
+                baseUrl: '/',
+                scriptPath: '/sites/default/files/',
+                pathPrefix: ''
+            }
+        };
+        Drupal.behaviors.myModule = {
+            attach: function (context, settings) {
+                // Drupal behavior code
+            }
+        };
+    </script>
+    <link rel="stylesheet" href="/sites/all/themes/mytheme/style.css">
+
+    <!-- Joomla -->
+    <script src="/administrator/components/com_content/js/admin.js"></script>
+    <link rel="stylesheet" href="/components/com_users/css/style.css">
+    <meta name="generator" content="Joomla! - Open Source Content Management">
+
+    <!-- Ghost -->
+    <script>
+        ghost.init({
+            clientId: "ghost-frontend",
+            clientSecret: "123456789"
+        });
+        window.ghost_root_url = "https://example.ghost.io";
+    </script>
+    <link rel="stylesheet" href="/@tryghost/content/themes/casper/style.css">
+
+    <!-- Shopify -->
+    <script src="https://cdn.shopify.com/s/assets/storefront.js"></script>
+    <link rel="stylesheet" href="https://cdn.shopify.com/s/files/theme.css">
+    <script>
+        Shopify.theme = {
+            name: "Debut",
+            id: "123456789"
+        };
+        Shopify.shop = "mystore.myshopify.com";
+    </script>
+
+    <!-- Magento -->
+    <script src="/skin/frontend/base/default/js/bundle.js"></script>
+    <link rel="stylesheet" href="/app/design/frontend/mytheme/default/css/styles.css">
+    <script>
+        var MAGENTO_CONFIG = {
+            "baseUrl": "https://example.com/",
+            "skinUrl": "/skin/frontend/base/default"
+        };
+        Mage.Cookies.set('user_allowed_save_cookie', '1');
+    </script>
+
+    <!-- Wix -->
+    <script src="https://static.wixstatic.com/wix-code/site.js"></script>
+    <meta name="generator" content="Wix.com Website Builder">
+    <script>
+        window.wixBiSession = {
+            viewerSessionId: '12345678-1234-1234-1234-123456789012'
+        };
+        wixEvents.init();
+    </script>
+
+    <!-- Squarespace -->
+    <script src="https://static1.squarespace.com/universal/scripts-compressed/common.js"></script>
+    <link rel="stylesheet" href="https://static.squarespace.com/site.css">
+    <script>
+        Squarespace.afterBodyLoad(Y);
+        Static.SQUARESPACE_CONTEXT = {
+            website: {
+                id: "123456789"
+            }
+        };
+    </script>
+
+    <!-- Cloud Storage Examples -->
+    <script>
+        // AWS S3 Configuration
+        const s3Config = {
+            bucket: "my-company-assets",
+            region: "us-west-2"
+        };
+        const s3Url = "https://my-bucket.s3.amazonaws.com/images/logo.png";
+        const s3Uri = "s3://another-bucket/data/backup.zip";
+        
+        // Azure Blob Storage
+        const azureConnectionString = "DefaultEndpointsProtocol=https;AccountName=mycompanystore;AccountKey=abcd1234...;EndpointSuffix=core.windows.net";
+        const azureBlobUrl = "https://mycompanystore.blob.core.windows.net/images/banner.jpg";
+        
+        // Google Cloud Storage
+        const gcpConfig = {
+            "type": "service_account",
+            "project_id": "my-project",
+            "bucket": "my-gcp-bucket"
+        };
+        const gcpUrl = "https://storage.googleapis.com/my-bucket/files/data.json";
+        const gcpConsoleUrl = "https://storage.cloud.google.com/my-bucket/backup/";
+    </script>
+
+    <!-- Google Analytics -->
+    <script async src="https://www.google-analytics.com/analytics.js"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-XXXXX-Y');
+    </script>
+    
+    <!-- Facebook Pixel -->
+    <script>
+        !function(f,b,e,v,n,t,s) {
+            if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+            n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+            if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+            n.queue=[];t=b.createElement(e);t.async=!0;
+            t.src=v;s=b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t,s)}(window, document,'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '123456789');
+        fbq('track', 'PageView');
+    </script>
+    
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({
+            google_ad_client: "ca-pub-XXXXXXXXXXXXXXXX",
+            enable_page_level_ads: true
+        });
+    </script>
+    
+    <!-- Intercom Chat -->
+    <script>
+        window.intercomSettings = {
+            app_id: "abc123"
+        };
+    </script>
+    <script src="https://widget.intercom.io/widget/abc123"></script>
+    
+    <!-- Hotjar Tracking -->
+    <script>
+        (function(h,o,t,j,a,r){
+            h._hjSettings={hjid:123456,hjsv:6};
+            a=o.getElementsByTagName('head')[0];
+            r=o.createElement('script');r.async=1;
+            r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+            a.appendChild(r);
+        })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+    </script>
+
+    <!-- Microsoft Clarity -->
+    <script>
+        (function(c,l,a,r,i,t,y){
+            c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+            t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+            y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+        })(window, document, "clarity", "script", "abcdef123");
+    </script>
+
+    <!-- Sentry Error Tracking -->
+    <script
+        src="https://browser.sentry-cdn.com/7.x.x/bundle.min.js"
+        integrity="sha384-xxxxxx"
+        crossorigin="anonymous">
+    </script>
+    <script>
+        Sentry.init({ dsn: "https://xxxxx@xxxx.ingest.sentry.io/xxxxx" });
+    </script>
+
+    <!-- Optimizely -->
+    <script src="https://cdn.optimizely.com/js/12345678.js"></script>
+
+    <!-- CookieBot -->
+    <script id="Cookiebot" src="https://consent.cookiebot.com/uc.js" 
+        data-cbid="12345678-1234-1234-1234-123456789012" 
+        data-blockingmode="auto" type="text/javascript">
+    </script>
+</head>
+<body>
+    <!-- CMS Content Examples -->
+    <div id="wp-admin-bar"></div>
+    <div class="drupal-content" data-drupal-selector="content"></div>
+    <div class="joomla-article" itemtype="https://schema.org/Article"></div>
+    <div data-ghost="signup-form"></div>
+    <div id="shopify-section-header"></div>
+    <div class="magento-messages"></div>
+    <div id="SITE_CONTAINER" class="wix-site"></div>
+    <div class="sqs-block-content"></div>
+
+    <!-- Cloud Storage References in Content -->
+    <img src="https://my-public-bucket.s3.amazonaws.com/images/header.jpg" alt="Header">
+    <img src="https://company-assets.blob.core.windows.net/public/logo.png" alt="Logo">
+    <img src="https://storage.googleapis.com/public-assets/images/banner.jpg" alt="Banner">
+
+    <!-- Hidden iframe -->
+    <iframe style="display: none" src="tracker.html"></iframe>
+    
+    <!-- Zero-size iframe -->
+    <iframe width="0" height="0" src="pixel.html"></iframe>
+    
+    <!-- Dynamic Hidden Iframe -->
+    <script>
+        var iframe = document.createElement('iframe');
+        iframe.style.display = 'none';
+        iframe.src = 'hidden-tracker.html';
+        document.body.appendChild(iframe);
+    </script>
+    
+    <!-- Taboola -->
+    <script>
+        window._taboola = window._taboola || [];
+        _taboola.push({article:'auto'});
+        !function (e, f, u, i) {
+            if (!document.getElementById(i)){
+                e.async = 1;
+                e.src = u;
+                e.id = i;
+                f.parentNode.insertBefore(e, f);
+            }
+        }(document.createElement('script'),
+        document.getElementsByTagName('script')[0],
+        '//cdn.taboola.com/libtrc/abcdef/loader.js',
+        'tb_loader_script');
+    </script>
+    
+    <!-- LinkedIn Insight -->
+    <script>
+        _linkedin_partner_id = "123456";
+        window._linkedin_data_partner_ids = window._linkedin_data_partner_ids || [];
+        window._linkedin_data_partner_ids.push(_linkedin_partner_id);
+    </script>
+    <script src="https://snap.licdn.com/li.lms-analytics/insight.min.js"></script>
+    
+    <!-- Twitter Pixel -->
+    <script>
+        !function(e,t,n,s,u,a){e.twq||(s=e.twq=function(){
+            s.exe?s.exe.apply(s,arguments):s.queue.push(arguments);
+        },s.version='1.1',s.queue=[],u=t.createElement(n),u.async=!0,
+        u.src='https://static.ads-twitter.com/uwt.js',
+        a=t.getElementsByTagName(n)[0],a.parentNode.insertBefore(u,a))}
+        (window,document,'script');
+        twq('init','twitter-hash');
+        twq('track','PageView');
+    </script>
+
+    <!-- Pinterest Tag -->
+    <script>
+        !function(e){if(!window.pintrk){window.pintrk = function () {
+        window.pintrk.queue.push(Array.prototype.slice.call(arguments))};var
+        n=window.pintrk;n.queue=[],n.version="3.0";var
+        t=document.createElement("script");t.async=!0,t.src=e;var
+        r=document.getElementsByTagName("script")[0];
+        r.parentNode.insertBefore(t,r)}}("https://s.pinimg.com/ct/core.js");
+        pintrk('load', 'YOUR_TAG_ID');
+        pintrk('page');
+    </script>
+
+    <!-- LogRocket -->
+    <script src="https://cdn.logrocket.io/LogRocket.min.js"></script>
+    <script>window.LogRocket && window.LogRocket.init('app/123');</script>
+
+    <h1>Enhanced Test Page for Spectre Scanner</h1>
+    <p>This page includes various elements for testing, including:</p>
+    <ul>
+        <li>Content Management Systems (WordPress, Drupal, Joomla, Ghost, Shopify, Magento, Wix, Squarespace)</li>
+        <li>Cloud Storage (AWS S3, Azure Blob, Google Cloud Storage)</li>
+        <li>Session Recording (Clarity, LogRocket)</li>
+        <li>Error Tracking (Sentry)</li>
+        <li>A/B Testing (Optimizely)</li>
+        <li>Consent Management (CookieBot)</li>
+        <li>Dynamic Hidden Iframes</li>
+        <li>Pinterest Tracking</li>
+    </ul>
+</body>
+</html>
