@@ -7,9 +7,37 @@ type PatternType struct {
 	Pattern  string
 }
 
-// AllPatternTypes contains all patterns to search for
-var AllPatternTypes = []PatternType{
-	// CMS Detection
+// API Specification patterns
+var apiSpecPatterns = []PatternType{
+	{
+		Category: "APISpec",
+		Name:     "Swagger UI",
+		Pattern:  `(?i)swagger-ui\.css|swagger-ui\.js|swagger-ui-bundle\.js|swagger-initializer\.js|/swagger-ui/|swagger-ui\.html|swagger\.json|swagger\.yaml|/api-docs\.json|openapi\.json|openapi\.yaml`,
+	},
+	{
+		Category: "APISpec",
+		Name:     "GraphQL",
+		Pattern:  `(?i)/graphql|/graphiql|graphql\.schema|schema\.graphql|\.graphqls|graphiql\.min\.(css|js)|/playground|graphql-playground|altair-graphql|graphql\.config`,
+	},
+	{
+		Category: "APISpec",
+		Name:     "RAML",
+		Pattern:  `(?i)\.raml$|/raml/|api\.raml|raml-console|raml-api-console|raml-javascript-generator|raml-client-generator`,
+	},
+	{
+		Category: "APISpec",
+		Name:     "API Blueprint",
+		Pattern:  `(?i)\.apib$|/apib/|api\.apib|apiary\.io|apiblueprint\.org|aglio -i|snowboard -i|drakov -f|FORMAT:\s*1A`,
+	},
+	{
+		Category: "APISpec",
+		Name:     "Common API Paths",
+		Pattern:  `(?i)/api/v[0-9]+/|/api/docs/|/api/swagger/|/api/schema/|/api/openapi/|/api/specification/|/api/reference/|/api/documentation/|/rest/v[0-9]+/|/rest/api/|/developer/api/`,
+	},
+}
+
+// CMS Detection patterns
+var cmsPatterns = []PatternType{
 	{
 		Category: "CMS",
 		Name:     "WordPress",
@@ -50,8 +78,10 @@ var AllPatternTypes = []PatternType{
 		Name:     "Squarespace",
 		Pattern:  `(?i)squarespace\.com|sqsp\.com|squarespace-cdn\.com|squarespace\.config|squarespace\.bootstrap|static\.squarespace|static1\.squarespace`,
 	},
+}
 
-	// Cloud Storage
+// Cloud Storage patterns
+var cloudStoragePatterns = []PatternType{
 	{
 		Category: "CloudStorage",
 		Name:     "AWS S3 Bucket",
@@ -67,17 +97,19 @@ var AllPatternTypes = []PatternType{
 		Name:     "Google Cloud Storage",
 		Pattern:  `(?i)(?:https?://)?storage\.cloud\.google\.com/[a-zA-Z0-9-]+|(?:https?://)?storage\.googleapis\.com/[a-zA-Z0-9-]+|"type":\s*"service_account"|GOOGLE_CLOUD_BUCKET|GCS_BUCKET`,
 	},
+}
 
-	// Tracking Pixels
+// Tracking Pixel patterns
+var trackingPixelPatterns = []PatternType{
 	{
 		Category: "TrackingPixel",
 		Name:     "Facebook Pixel",
-		Pattern:  `(?i)facebook\.com/tr|facebook\.net/signals|connect\.facebook\.net|fbevents\.js|_fbq\.push`,
+		Pattern:  `(?i)facebook\.com/tr|facebook\.net/signals|connect\.facebook\.net|fbevents\.js|_fbq\.push|fbq\(['"]track['"]`,
 	},
 	{
 		Category: "TrackingPixel",
 		Name:     "Google Analytics",
-		Pattern:  `(?i)google-analytics\.com|analytics\.js|gtag|ga\.js|googletagmanager\.com|google_analytics|_ga\.push`,
+		Pattern:  `(?i)google-analytics\.com|analytics\.js|gtag|ga\.js|googletagmanager\.com|google_analytics|_ga\.push|ga\(['"]send['"]`,
 	},
 	{
 		Category: "TrackingPixel",
@@ -99,8 +131,10 @@ var AllPatternTypes = []PatternType{
 		Name:     "TikTok Pixel",
 		Pattern:  `(?i)analytics\.tiktok\.com|tiktok\.com/i/pixel|ttq\.track|_tiktok\.push`,
 	},
+}
 
-	// Ad Networks
+// Ad Network patterns
+var adNetworkPatterns = []PatternType{
 	{
 		Category: "AdNetwork",
 		Name:     "Google AdSense",
@@ -131,8 +165,10 @@ var AllPatternTypes = []PatternType{
 		Name:     "Criteo",
 		Pattern:  `(?i)static\.criteo\.net|criteo\.com/js|criteo_q\.push|crto\.com`,
 	},
+}
 
-	// AI Chat Windows
+// AI Chat patterns
+var aiChatPatterns = []PatternType{
 	{
 		Category: "AIChat",
 		Name:     "Intercom",
@@ -163,8 +199,10 @@ var AllPatternTypes = []PatternType{
 		Name:     "Tidio",
 		Pattern:  `(?i)code\.tidio\.co|tidio\.com/|tidioChatCode`,
 	},
+}
 
-	// Hidden iframes
+// Hidden iframe patterns
+var hiddenIframePatterns = []PatternType{
 	{
 		Category: "HiddenIframe",
 		Name:     "Hidden Iframe",
@@ -180,8 +218,10 @@ var AllPatternTypes = []PatternType{
 		Name:     "Dynamic Hidden Iframe",
 		Pattern:  `(?i)createElement\(['"']iframe['"']\)[^>]*(?:style\.display\s*=\s*['"']none['"']|style\.visibility\s*=\s*['"']hidden['"']|style\.opacity\s*=\s*['"']0['"'])`,
 	},
+}
 
-	// Additional Tracking
+// Additional Tracking patterns
+var trackingPatterns = []PatternType{
 	{
 		Category: "Tracking",
 		Name:     "Hotjar",
@@ -212,8 +252,10 @@ var AllPatternTypes = []PatternType{
 		Name:     "Mixpanel",
 		Pattern:  `(?i)cdn\.mxpnl\.com|mixpanel\.init|mixpanel\.track`,
 	},
+}
 
-	// Consent Management
+// Consent Management patterns
+var consentManagementPatterns = []PatternType{
 	{
 		Category: "ConsentManagement",
 		Name:     "OneTrust",
@@ -229,8 +271,10 @@ var AllPatternTypes = []PatternType{
 		Name:     "TrustArc",
 		Pattern:  `(?i)consent\.truste\.com|truste\.com/notice|truste-svc\.net`,
 	},
+}
 
-	// Session Recording
+// Session Recording patterns
+var sessionRecordingPatterns = []PatternType{
 	{
 		Category: "SessionRecording",
 		Name:     "LogRocket",
@@ -246,8 +290,10 @@ var AllPatternTypes = []PatternType{
 		Name:     "Clarity",
 		Pattern:  `(?i)clarity\.ms/tag|microsoft\.com/clarity|clarity\.identify`,
 	},
+}
 
-	// Error Tracking
+// Error Tracking patterns
+var errorTrackingPatterns = []PatternType{
 	{
 		Category: "ErrorTracking",
 		Name:     "Sentry",
@@ -263,8 +309,10 @@ var AllPatternTypes = []PatternType{
 		Name:     "BugSnag",
 		Pattern:  `(?i)d2wy8f7a9ursnm\.cloudfront\.net/bugsnag|bugsnag\.init|window\.bugsnag`,
 	},
+}
 
-	// A/B Testing
+// A/B Testing patterns
+var abTestingPatterns = []PatternType{
 	{
 		Category: "ABTesting",
 		Name:     "Optimizely",
@@ -281,3 +329,23 @@ var AllPatternTypes = []PatternType{
 		Pattern:  `(?i)optimize\.google\.com|gtag\('config', 'OPT-|google_optimize`,
 	},
 }
+
+// init combines all pattern slices into AllPatternTypes
+func init() {
+	AllPatternTypes = make([]PatternType, 0)
+	AllPatternTypes = append(AllPatternTypes, apiSpecPatterns...)
+	AllPatternTypes = append(AllPatternTypes, cmsPatterns...)
+	AllPatternTypes = append(AllPatternTypes, cloudStoragePatterns...)
+	AllPatternTypes = append(AllPatternTypes, trackingPixelPatterns...)
+	AllPatternTypes = append(AllPatternTypes, adNetworkPatterns...)
+	AllPatternTypes = append(AllPatternTypes, aiChatPatterns...)
+	AllPatternTypes = append(AllPatternTypes, hiddenIframePatterns...)
+	AllPatternTypes = append(AllPatternTypes, trackingPatterns...)
+	AllPatternTypes = append(AllPatternTypes, consentManagementPatterns...)
+	AllPatternTypes = append(AllPatternTypes, sessionRecordingPatterns...)
+	AllPatternTypes = append(AllPatternTypes, errorTrackingPatterns...)
+	AllPatternTypes = append(AllPatternTypes, abTestingPatterns...)
+}
+
+// AllPatternTypes contains all patterns to search for
+var AllPatternTypes []PatternType

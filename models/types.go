@@ -96,33 +96,84 @@ func (f *Findings) CloseJSONFile() {
 // getDescription returns a description based on category and pattern type
 func getDescription(category, patternType string) string {
 	descriptions := map[string]map[string]string{
+		"APISpec": {
+			"Swagger UI":       "Swagger/OpenAPI documentation interface for API visualization and testing",
+			"GraphQL":          "GraphQL API endpoint or development tools for querying and manipulating data",
+			"RAML":             "RESTful API Modeling Language (RAML) documentation and specifications",
+			"API Blueprint":    "API Blueprint documentation format for describing web APIs",
+			"Common API Paths": "Standard REST API endpoint patterns and documentation locations",
+		},
+		"CMS": {
+			"WordPress":   "WordPress content management system components and functionality",
+			"Drupal":      "Drupal content management platform elements and configurations",
+			"Joomla":      "Joomla CMS core components and administrative features",
+			"Ghost":       "Ghost publishing platform elements and administrative tools",
+			"Shopify":     "Shopify e-commerce platform components and functionality",
+			"Magento":     "Magento e-commerce system elements and features",
+			"Wix":         "Wix website builder platform components and tools",
+			"Squarespace": "Squarespace website platform elements and functionality",
+		},
+		"CloudStorage": {
+			"AWS S3 Bucket":        "Amazon Web Services S3 storage bucket configuration and access",
+			"Azure Blob Storage":   "Microsoft Azure Blob storage configuration and connection strings",
+			"Google Cloud Storage": "Google Cloud Storage bucket configuration and access details",
+		},
 		"TrackingPixel": {
-			"Facebook Pixel":   "Facebook tracking pixel used for conversion tracking and audience targeting",
-			"Google Analytics": "Google Analytics tracking code for website analytics and user behavior tracking",
+			"Facebook Pixel":   "Facebook tracking pixel for conversion tracking and audience targeting",
+			"Google Analytics": "Google Analytics tracking code for website analytics and user behavior",
 			"LinkedIn Insight": "LinkedIn Insight Tag for conversion tracking and audience analytics",
 			"Twitter Pixel":    "Twitter pixel for conversion tracking and audience targeting",
+			"Pinterest Tag":    "Pinterest conversion tracking and audience targeting pixel",
+			"TikTok Pixel":     "TikTok pixel for conversion tracking and audience targeting",
 		},
 		"AdNetwork": {
 			"Google AdSense": "Google AdSense advertising network integration",
 			"Amazon Ads":     "Amazon advertising network integration",
 			"Media.net":      "Media.net advertising network integration",
 			"Taboola":        "Taboola content recommendation and advertising network",
+			"Outbrain":       "Outbrain content discovery and advertising platform",
+			"Criteo":         "Criteo retargeting and advertising network",
 		},
 		"AIChat": {
-			"Intercom": "Intercom customer messaging platform",
-			"Drift":    "Drift conversational marketing platform",
-			"Zendesk":  "Zendesk customer service platform",
-			"Crisp":    "Crisp customer messaging platform",
+			"Intercom": "Intercom customer messaging and engagement platform",
+			"Drift":    "Drift conversational marketing and sales platform",
+			"Zendesk":  "Zendesk customer service and engagement platform",
+			"Crisp":    "Crisp customer messaging and support platform",
+			"LiveChat": "LiveChat customer service and engagement platform",
+			"Tidio":    "Tidio live chat and chatbot platform",
 		},
 		"HiddenIframe": {
-			"Hidden Iframe":    "Hidden iframe potentially used for tracking or third-party content loading",
-			"Zero Size Iframe": "Zero-sized iframe potentially used for tracking or third-party content loading",
+			"Hidden Iframe":         "Hidden iframe using CSS display or visibility properties",
+			"Zero Size Iframe":      "Zero-sized iframe with width or height set to 0",
+			"Dynamic Hidden Iframe": "Dynamically created hidden iframe using JavaScript",
 		},
 		"Tracking": {
-			"Hotjar":       "Hotjar behavior analytics and user feedback platform",
-			"Mouseflow":    "Mouseflow session replay and heatmap tool",
-			"FullStory":    "FullStory digital experience analytics platform",
-			"Lucky Orange": "Lucky Orange analytics and customer feedback platform",
+			"Hotjar":         "Hotjar behavior analytics and user feedback platform",
+			"Mouseflow":      "Mouseflow session replay and heatmap analytics tool",
+			"FullStory":      "FullStory digital experience analytics platform",
+			"Lucky Orange":   "Lucky Orange analytics and customer feedback platform",
+			"Heap Analytics": "Heap analytics platform for user behavior tracking",
+			"Mixpanel":       "Mixpanel product analytics platform",
+		},
+		"ConsentManagement": {
+			"OneTrust":  "OneTrust privacy and consent management platform",
+			"CookieBot": "CookieBot GDPR/CCPA consent management solution",
+			"TrustArc":  "TrustArc privacy management and compliance platform",
+		},
+		"SessionRecording": {
+			"LogRocket": "LogRocket session replay and error tracking platform",
+			"Smartlook": "Smartlook user session recording and analytics",
+			"Clarity":   "Microsoft Clarity behavior analytics and heatmap tool",
+		},
+		"ErrorTracking": {
+			"Sentry":  "Sentry error monitoring and crash reporting platform",
+			"Rollbar": "Rollbar error tracking and debugging platform",
+			"BugSnag": "BugSnag application stability monitoring platform",
+		},
+		"ABTesting": {
+			"Optimizely":      "Optimizely A/B testing and experimentation platform",
+			"VWO":             "Visual Website Optimizer A/B testing platform",
+			"Google Optimize": "Google Optimize A/B testing and personalization tool",
 		},
 	}
 
@@ -137,11 +188,18 @@ func getDescription(category, patternType string) string {
 // getRiskLevel returns a risk level based on category
 func getRiskLevel(category string) string {
 	risks := map[string]string{
-		"TrackingPixel": "Medium",
-		"AdNetwork":     "Medium",
-		"AIChat":        "Low",
-		"HiddenIframe":  "High",
-		"Tracking":      "Medium",
+		"APISpec":           "Medium",
+		"CMS":               "Low",
+		"CloudStorage":      "High",
+		"TrackingPixel":     "Medium",
+		"AdNetwork":         "Medium",
+		"AIChat":            "Low",
+		"HiddenIframe":      "High",
+		"Tracking":          "Medium",
+		"ConsentManagement": "Low",
+		"SessionRecording":  "Medium",
+		"ErrorTracking":     "Low",
+		"ABTesting":         "Low",
 	}
 
 	if risk, ok := risks[category]; ok {
@@ -153,11 +211,18 @@ func getRiskLevel(category string) string {
 // getImpact returns an impact description based on category
 func getImpact(category string) string {
 	impacts := map[string]string{
-		"TrackingPixel": "Enables user behavior tracking and conversion monitoring across sites",
-		"AdNetwork":     "Allows targeted advertising and user profiling",
-		"AIChat":        "Enables customer interaction monitoring and data collection",
-		"HiddenIframe":  "May enable third-party tracking, data collection, or potentially malicious content",
-		"Tracking":      "Enables detailed user behavior analysis and session recording",
+		"APISpec":           "Exposes API documentation and endpoints which may reveal sensitive implementation details",
+		"CMS":               "Reveals content management system information that could be used for targeting exploits",
+		"CloudStorage":      "Exposes cloud storage configurations that could lead to data access if misconfigured",
+		"TrackingPixel":     "Enables user behavior tracking and conversion monitoring across sites",
+		"AdNetwork":         "Allows targeted advertising and user profiling",
+		"AIChat":            "Enables customer interaction monitoring and data collection",
+		"HiddenIframe":      "May enable third-party tracking, data collection, or potentially malicious content",
+		"Tracking":          "Enables detailed user behavior analysis and session recording",
+		"ConsentManagement": "Manages user privacy preferences and cookie consent",
+		"SessionRecording":  "Records and analyzes user interactions and behavior on the site",
+		"ErrorTracking":     "Collects application errors and debugging information",
+		"ABTesting":         "Enables website experimentation and user experience testing",
 	}
 
 	if impact, ok := impacts[category]; ok {

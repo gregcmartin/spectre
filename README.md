@@ -1,25 +1,28 @@
-# Spectre - Web Tracking & Ad Network Scanner
+# Spectre - Web Tracking & API Scanner
 
-A powerful Go-based tool designed to detect tracking pixels, ad networks, AI chat widgets, hidden iframes, and other tracking elements in web applications. It scans websites using parallel processing to efficiently identify various tracking and advertising components.
+A powerful Go-based tool designed to detect tracking elements, API specifications, and various web components. It scans websites using parallel processing to efficiently identify tracking pixels, ad networks, API documentation, hidden iframes, and more.
 
 ## Features
 
 - Multi-threaded scanning for high performance
 - Support for scanning Majestic Million top sites
 - Configurable percentage-based scanning
-- Comprehensive tracking detection:
-  - Tracking Pixels (Facebook, Google Analytics, LinkedIn, Twitter, Pinterest, TikTok)
-  - Ad Networks (Google AdSense, Amazon Ads, Media.net, Taboola, Outbrain, Criteo)
-  - AI Chat Windows (Intercom, Drift, Zendesk, Crisp, LiveChat, Tidio)
-  - Hidden iframes (display:none, zero-sized, dynamically created)
-  - Session Recording (LogRocket, Smartlook, Clarity)
-  - Error Tracking (Sentry, Rollbar, BugSnag)
-  - A/B Testing (Optimizely, VWO, Google Optimize)
-  - Consent Management (OneTrust, CookieBot, TrustArc)
-  - General Tracking (Hotjar, Mouseflow, FullStory, Lucky Orange, Heap Analytics, Mixpanel)
+- Comprehensive detection capabilities:
+  - API Specifications
+    * Swagger/OpenAPI Documentation
+    * GraphQL Endpoints and Schemas
+    * RAML Documentation
+    * API Blueprint
+    * Common API Paths
+  - Content Management Systems (CMS)
+  - Cloud Storage Configurations
+  - Tracking Elements
+  - Privacy and Compliance Tools
 - Detailed statistics and reporting
 - JSON output support
 - Cross-platform support
+
+For a complete list of detection capabilities, see [PATTERNS.md](PATTERNS.md).
 
 ## Installation
 
@@ -65,7 +68,7 @@ Options:
   -d        Detailed mode (shows line numbers and matched content)
   -m        Use Majestic Million list for scanning
   -p int    Percentage of Majestic Million to scan (1-100, default: 100)
-  -c        Category to scan (TrackingPixel, AdNetwork, AIChat, HiddenIframe, 
+  -c        Category to scan (APISpec, TrackingPixel, AdNetwork, AIChat, HiddenIframe, 
             SessionRecording, ErrorTracking, ABTesting, ConsentManagement, 
             Tracking, or 'all')
   -o        Output results to JSON file (e.g., "results.json")
@@ -76,6 +79,11 @@ Options:
 Scan with detailed output:
 ```bash
 ./spectre -d example.com
+```
+
+Scan for API specifications:
+```bash
+./spectre -c APISpec example.com
 ```
 
 Scan specific category:
@@ -99,15 +107,22 @@ When using JSON output (-o flag), findings are structured as:
 
 ```json
 {
-  "category": "TrackingPixel",
-  "pattern_type": "Google Analytics",
-  "value": "google-analytics.com/analytics.js",
+  "category": "APISpec",
+  "pattern_type": "Swagger UI",
+  "value": "swagger-ui.css",
   "location": "example.com#L42",
-  "description": "Google Analytics tracking code for website analytics",
+  "description": "Swagger UI documentation interface for API visualization and testing",
   "risk_level": "Medium",
-  "impact": "Enables user behavior tracking and conversion monitoring"
+  "impact": "Exposes API documentation and endpoints which may reveal sensitive implementation details"
 }
 ```
+
+## Project Structure
+
+- `main.go` - Core scanning logic and CLI interface
+- `models/types.go` - Data structures and utilities
+- `patterns/patterns.go` - Pattern definitions for detection
+- `PATTERNS.md` - Detailed documentation of detection capabilities
 
 ## Contributing
 
