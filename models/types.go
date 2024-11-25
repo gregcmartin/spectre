@@ -2,6 +2,7 @@ package models
 
 import (
 	"encoding/json"
+	"fmt"
 	"html"
 	"os"
 	"strings"
@@ -37,10 +38,12 @@ type URLFindings struct {
 
 // Findings manages all scan findings
 type Findings struct {
-	Items    []URLFindings
-	jsonFile *os.File
-	encoder  *json.Encoder
-	mu       sync.Mutex
+	Items         []URLFindings
+	jsonFile      *os.File
+	encoder       *json.Encoder
+	mu            sync.Mutex
+	uniqueEntries map[string]bool // Track unique findings
+	writtenKeys   map[string]bool // Track findings already written to JSON
 }
 
 // NewStatistics creates a new Statistics instance
@@ -69,7 +72,9 @@ func (s *Statistics) IncrementScanned(bytes int64) {
 // NewFindings creates a new Findings instance
 func NewFindings() *Findings {
 	return &Findings{
-		Items: make([]URLFindings, 0),
+		Items:         make([]URLFindings, 0),
+		uniqueEntries: make(map[string]bool),
+		writtenKeys:   make(map[string]bool),
 	}
 }
 
@@ -254,6 +259,15 @@ func (f *Findings) Add(url, category, patternType, value, location string) {
 	// Clean and process the value
 	cleanedValue := cleanValue(value)
 
+	// Create a unique key for this finding
+	key := fmt.Sprintf("%s:%s:%s:%s", url, category, patternType, cleanedValue)
+
+	// Check if we've already seen this finding
+	if f.uniqueEntries[key] {
+		return // Skip duplicate findings
+	}
+	f.uniqueEntries[key] = true
+
 	// Create implementation details if it's an iframe
 	var implementation map[string]string
 	if strings.Contains(strings.ToLower(patternType), "iframe") {
@@ -298,8 +312,9 @@ func (f *Findings) Add(url, category, patternType, value, location string) {
 		urlFindings.Findings = append(urlFindings.Findings, finding)
 	}
 
-	// Write to JSON file if enabled
-	if f.encoder != nil {
+	// Write to JSON file if enabled, but only if we haven't written this finding before
+	if f.encoder != nil && !f.writtenKeys[key] {
 		f.encoder.Encode(finding)
+		f.writtenKeys[key] = true
 	}
 }
